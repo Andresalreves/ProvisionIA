@@ -65,7 +65,7 @@ def preprocess_and_explain(df, date_column, target_column):
     df = df.dropna().copy()
 
     # Paso 3: Convertir columna de fecha
-    print(f"\nPaso 3: Asegurándonos de que la columna de fecha '{date_column}' esté en formato de fecha...")
+    print(f"\nPaso 3: Asegurándonos de que la columna de '{date_column}' esté en formato de fecha...")
     df[date_column] = pd.to_datetime(df[date_column])
     print(f"Tipo de datos de la columna '{date_column}':", df[date_column].dtype)
 
@@ -229,12 +229,6 @@ class AdaptiveHybridForecast:
         })
     
     def fit(self, df):
-        """
-        Entrena el modelo con cualquier conjunto de datos
-        
-        Args:
-            df: DataFrame con al menos una columna de fecha y una numérica
-        """
         # Preprocesar datos
         df_processed = self._preprocess_data(df)
         
@@ -370,15 +364,7 @@ class AdaptiveHybridForecast:
         return fig
 
 def quick_forecast(df, date_column=None, target_column=None, future_periods=30):
-    """
-    Función de utilidad para realizar predicciones rápidas
-    
-    Args:
-        df: DataFrame con los datos
-        date_column: Nombre de la columna de fecha (opcional)
-        target_column: Nombre de la columna objetivo (opcional)
-        future_periods: Número de períodos futuros a predecir
-    """
+
     model = AdaptiveHybridForecast(date_column, target_column)
     model.fit(df)
     predictions = model.predict(future_periods)

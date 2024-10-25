@@ -5,14 +5,11 @@ archivo = pd.read_csv('datos_sinteticos.csv')
 
 df = preprocess_and_explain(archivo,'fecha','ventas')
 
-# Opción 1: Uso rápido con detección automática
-predicciones, dashboard = quick_forecast(df)
-
-# Opción 2: Uso con especificación manual de columnas
 modelo = AdaptiveHybridForecast(
-    date_column='fecha',  # opcional
-    target_column='ventas'  # opcional
+    date_column='fecha',
+    target_column='ventas'
 )
 modelo.fit(df)
-predicciones = modelo.predict(future_periods=30)
+predicciones = modelo.predict(future_periods=90)
 dashboard = modelo.create_interactive_dashboard(predicciones, df)
+dashboard.show()
